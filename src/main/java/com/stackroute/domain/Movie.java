@@ -1,11 +1,17 @@
 package com.stackroute.domain;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Movie {
+public class Movie implements ApplicationContextAware, BeanFactoryAware, BeanNameAware {
 
 
     @Autowired
@@ -14,13 +20,6 @@ public class Movie {
     @Autowired
     public void setActor(Actor actor) {
         this.actor = actor;
-        System.out.println("Autowiring bytype used");
-    }
-    //Autowired annotation on Constructor is equivalent to autowire="constructor"
-    @Autowired(required=false)
-    public Movie( Actor actor){
-        this.actor=actor;
-        System.out.println("Autowiring by constructor used");
     }
 
     public void display()
@@ -28,4 +27,16 @@ public class Movie {
         actor.displayinfo();
     }
 
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+
+    }
+
+    public void setBeanName(String s) {
+        System.out.println("name"+s);
+
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+    }
 }
